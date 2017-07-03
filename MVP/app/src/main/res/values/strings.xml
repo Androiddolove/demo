@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">MVP</string>
+    <string name="action_settings">设置</string>
+    <string name="movies_fragment">电影fragment</string>
+    <string name="books_fragment">书籍fragment</string>
+    <string name="tab_movies_title">电影</string>
+    <string name="tab_books_title">书籍</string>
+</resources>
