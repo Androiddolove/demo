@@ -10,16 +10,14 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
-
+import com.example.ll.mvp.api.DoubanManager;
 import com.example.ll.mvp.books.BooksFragment;
 import com.example.ll.mvp.movies.MovieFragment;
-
+import com.example.ll.mvp.movies.MoviePresenter;
+import com.example.ll.mvp.movies.MoviesContract;
 import java.util.ArrayList;
 import java.util.List;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
@@ -56,31 +54,15 @@ public class HomeActivity extends AppCompatActivity {
     }
     private void setupViewPager(ViewPager viewPager){
         mViewPageradapter = new MainViewPagerAdapter(getSupportFragmentManager());
-        mViewPageradapter.addFragment(new MovieFragment(),getApplicationContext().getResources().getString(R.string.tab_movies_title));
+        MovieFragment movieFragment = MovieFragment.newInstance();
+        mViewPageradapter.addFragment(movieFragment,getApplicationContext().getResources().getString(R.string.tab_movies_title));
         mViewPageradapter.addFragment(new BooksFragment(),getApplicationContext().getResources().getString(R.string.tab_books_title));
         mMainVp.setAdapter(mViewPageradapter);
+        creatPresenter(movieFragment);
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_home, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
+    private void creatPresenter(MoviesContract.View fragment){
+        new MoviePresenter(DoubanManager.creatDoubanService(),fragment);
     }
 
     private class MainViewPagerAdapter extends FragmentPagerAdapter{

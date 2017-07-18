@@ -6,4 +6,7 @@
     <string name="books_fragment">书籍fragment</string>
     <string name="tab_movies_title">电影</string>
     <string name="tab_books_title">书籍</string>
+    <string name="hot_movies">热门电影</string>
+    <string name="hot_boks">热门书籍</string>
+    <string name="no_rating">暂无评分</string>
 </resources>
