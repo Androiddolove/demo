@@ -4,6 +4,7 @@ package com.example.ll.mvp.movies;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Rect;
 import android.os.Bundle;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.Nullable;
@@ -79,6 +80,7 @@ public class MovieFragment extends Fragment implements MoviesContract.View{
             mRcvMovie.setHasFixedSize(true);
             GridLayoutManager layoutManager = new GridLayoutManager(getActivity().getApplicationContext(),2);
             mRcvMovie.setLayoutManager(layoutManager);
+            mRcvMovie.addItemDecoration(new SpaceItemDecoration(30));
             adapter = new MovieAdapter(getActivity(),mMovieList,R.layout.item_movie);
             mRcvMovie.setAdapter(adapter);
         }
@@ -121,6 +123,23 @@ public class MovieFragment extends Fragment implements MoviesContract.View{
             progressBar.setVisibility(View.GONE);
         }
     }
+
+    public class SpaceItemDecoration extends RecyclerView.ItemDecoration{
+
+        private int space;
+
+        public SpaceItemDecoration(int space) {
+            this.space = space;
+        }
+
+        @Override
+        public void getItemOffsets(Rect outRect, View view, RecyclerView parent, RecyclerView.State state) {
+
+            if(parent.getChildPosition(view) != 0)
+                outRect.top = space;
+        }
+    }
+
 
     static class MovieAdapter extends RecyclerView.Adapter<MoviesViewHolder>{
         private List<Movie> movies;
@@ -188,8 +207,6 @@ public class MovieFragment extends Fragment implements MoviesContract.View{
                 movieRatingBar.setStepSize(0.5f);
                 movieRatingBar.setRating((float)movie.getRating().getAverage()/2);
             }
-
-
         }
 
         @Override
